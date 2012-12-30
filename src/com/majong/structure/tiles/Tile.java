@@ -7,6 +7,7 @@ public class Tile {
 	boolean _hasRightNeighbor = false;
 	boolean _hasTopNeighbor = false;
 	boolean _isTrapped = false;
+	boolean _isSelected = false;
 	String _graphic = "";
 	TileType _type;
 	
@@ -21,6 +22,9 @@ public class Tile {
 	
 	public boolean getIsTrapped(){ return _isTrapped; }	
 	public void setIsTrapped(boolean isTrapped){ _isTrapped = isTrapped; }
+	
+	public boolean getIsSelected(){ return _isSelected; }	
+	public void setIsSelected(boolean isSelected){ _isSelected = isSelected; }
 	
 	public String getGraphic(){ return _graphic; }	
 	public void setGraphic(String graphic){ _graphic = graphic; }
