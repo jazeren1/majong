@@ -2,6 +2,7 @@ package com.majong.engine;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.Stack;
 
 import com.majong.structure.Board;
 import com.majong.structure.Grid;
@@ -22,7 +23,7 @@ public class Engine {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		//tilePairs, MaxHeight, Rows, Cols
-		Board board = generateBoard(50, 1, 12, 12);
+		Board board = generateBoard(16, 4, 5, 5);
 		
 		/*
 		ArrayList<Tile> allTiles = board.getTiles();
@@ -32,7 +33,8 @@ public class Engine {
 		}
 		*/
 		//board = insertTiles(board);
-		board = randomlyPlaceTiles(board);
+		//board = randomlyPlaceTiles(board);
+		board = placeTiles(board, getSimplePattern(), 5, 5);
 		printGrid(board);
 		
 	}
@@ -303,6 +305,65 @@ public class Engine {
 		b.setGrids(gridsWithTiles);
 		
 		return b;
+	}
+	
+	public static Board placeTiles(Board board, String[][] pattern, int rows, int cols){
+		Board b = board;
+		
+		ArrayList<Tile> allTiles = board.getTiles();
+		ArrayList<Grid> gridsWithTiles = new ArrayList<Grid>();
+		
+		int totalGridRows = board.getGrids().size();
+		
+		boolean duplicate = false;
+		
+		Stack tiles = new Stack<Tile>();
+		for(Iterator iter = allTiles.iterator(); iter.hasNext();){
+			Tile t = (Tile)iter.next();
+			//push tiles onto a stack
+			tiles.push(t);
+		}
+		
+		for(int i = 0; i < board.getGrids().size(); i++){
+			Grid g = board.getGrids().get(i);
+			
+			String[][] tempGrid = g.getFullGrid();
+			
+			System.out.println("iterating through tiles...");								
+			
+
+
+			for(int j = 0; j < rows; j++){
+				for(int k = 0; k < cols; k++){
+					if(pattern[j][k] != null){
+						Tile tempTile = (Tile)tiles.pop();
+						tempGrid[j][k] = tempTile.getGraphic();
+					}
+				}
+			}
+			
+			g.setFullGrid(tempGrid);
+			gridsWithTiles.add(g);
+		}
+		
+		b.setGrids(gridsWithTiles);
+		
+		return b;
+	}
+	
+	public static String[][] getSimplePattern(){
+		String[][] pattern = new String[5][5];
+		
+		pattern[0][2] = "1";
+		pattern[1][1] = "1";
+		pattern[1][2] = "1";
+		pattern[1][3] = "1";
+		pattern[2][1] = "1";
+		pattern[2][2] = "1";
+		pattern[2][3] = "1";
+		pattern[3][2] = "1";		
+		
+		return pattern;
 	}
 	
 	public static void printGrid(Board board){
