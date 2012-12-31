@@ -1,7 +1,9 @@
 package com.majong.engine;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
+import java.util.Random;
 import java.util.Stack;
 
 import com.majong.structure.Board;
@@ -174,6 +176,9 @@ public class Initializer {
 				}
 			}		
 		}
+		
+		tiles = randomizeTiles(tiles);
+		
 		return tiles;
 	}
 	
@@ -270,5 +275,12 @@ public class Initializer {
 		
 		return b;
 	}	
+	
+	private ArrayList<Tile> randomizeTiles(ArrayList<Tile> tiles){
+		long seed = System.nanoTime();
+		Collections.shuffle(tiles, new Random(seed));
+		
+		return tiles;
+	}
 	
 }
