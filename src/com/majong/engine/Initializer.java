@@ -239,14 +239,23 @@ public class Initializer {
 		ArrayList<Grid> gridsWithTiles = new ArrayList<Grid>();
 		
 		int totalGridRows = board.getGrids().size();
+		int totalTilePairs = board.getTotalTilePairs();
+		int numPlacedTilePairs = 0;
 		
 		boolean duplicate = false;
 		
 		Stack tiles = new Stack<Tile>();
 		for(Iterator iter = allTiles.iterator(); iter.hasNext();){
+			
 			Tile t = (Tile)iter.next();
-			//push tiles onto a stack
-			tiles.push(t);
+			int positionOfPair = allTiles.lastIndexOf(t);
+			
+			if(positionOfPair != -1){
+				//push tiles onto a stack
+				tiles.push(t);
+				//always need to place the matching tile as well
+				tiles.push(allTiles.get(positionOfPair));
+			}
 		}
 		
 		for(int i = 0; i < board.getGrids().size(); i++){
