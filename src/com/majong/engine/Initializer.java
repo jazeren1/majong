@@ -193,7 +193,7 @@ public class Initializer {
 		for(int i = 0; i < board.getGrids().size(); i++){
 			Grid g = board.getGrids().get(i);
 			
-			String[][] tempGrid = g.getFullGrid();
+			Tile[][] tempGrid = g.getFullGrid();
 			
 			System.out.println("iterating through tiles...");
 			
@@ -205,7 +205,7 @@ public class Initializer {
 				int randomRow = (int)(Math.random()*b.getRows());
 				int randomCol = (int)(Math.random()*b.getColumns());
 				if(tempGrid[randomRow][randomCol] == null){
-					tempGrid[randomRow][randomCol] = t.getGraphic();
+					tempGrid[randomRow][randomCol] = t;
 				}
 				else{
 					duplicate = true;
@@ -213,7 +213,7 @@ public class Initializer {
 						randomRow = (int)(Math.random()*b.getRows());
 						randomCol = (int)(Math.random()*b.getColumns());
 						if(tempGrid[randomRow][randomCol] == null){
-							tempGrid[randomRow][randomCol] = t.getGraphic();
+							tempGrid[randomRow][randomCol] = t;
 							duplicate = false;
 						}
 						
@@ -261,7 +261,7 @@ public class Initializer {
 		for(int i = 0; i < board.getGrids().size(); i++){
 			Grid g = board.getGrids().get(i);
 			
-			String[][] tempGrid = g.getFullGrid();
+			Tile[][] tempGrid = g.getFullGrid();
 			
 			System.out.println("iterating through tiles...");								
 			
@@ -271,7 +271,7 @@ public class Initializer {
 				for(int k = 0; k < cols; k++){
 					if(pattern[j][k] != null){
 						Tile tempTile = (Tile)tiles.pop();
-						tempGrid[j][k] = tempTile.getGraphic();
+						tempGrid[j][k] = tempTile;
 					}
 				}
 			}

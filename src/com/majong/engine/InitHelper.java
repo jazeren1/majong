@@ -2,6 +2,7 @@ package com.majong.engine;
 
 import com.majong.structure.Board;
 import com.majong.structure.Grid;
+import com.majong.structure.tiles.Tile;
 
 public class InitHelper {
 	
@@ -31,7 +32,13 @@ public class InitHelper {
 			for(int j = 0; j < g.getRows(); j++){
 				System.out.println("");
 				for(int k = 0; k < g.getColumns(); k++){
-					System.out.print(g.getFullGrid()[j][k] + "\t");
+					Tile curTile = g.getFullGrid()[j][k];
+					if(curTile != null){
+						System.out.print(g.getFullGrid()[j][k].getGraphic() + "\t");
+					}
+					else{
+						System.out.print("X\t");
+					}
 				}
 			}
 			
