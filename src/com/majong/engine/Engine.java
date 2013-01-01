@@ -32,7 +32,7 @@ public class Engine {
 		InitHelper initHelper = new InitHelper();
 		
 		//tilePairs, MaxHeight, Rows, Cols
-		Board board = init.generateBoard(16, 1, 5, 5);
+		Board board = init.generateBoard(16, 1, 10, 5);
 
 		board = init.placeTiles(board, initHelper.getSimplePattern(), 5, 5);
 		initHelper.printGrid(board);

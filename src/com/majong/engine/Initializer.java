@@ -264,14 +264,15 @@ public class Initializer {
 			Tile[][] tempGrid = g.getFullGrid();
 			
 			System.out.println("iterating through tiles...");								
-			
 
-
-			for(int j = 0; j < rows; j++){
+			for(int j = 0; j < rows-1; j++){
 				for(int k = 0; k < cols; k++){
 					if(pattern[j][k] != null){
-						Tile tempTile = (Tile)tiles.pop();
-						tempGrid[j][k] = tempTile;
+						if(tempGrid[j][k] == null){
+							Tile tempTile = (Tile)tiles.pop();
+							tempGrid[j][k] = tempTile;
+							tempGrid[j+1][k] = tempTile;
+						}
 					}
 				}
 			}
