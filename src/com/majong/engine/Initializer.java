@@ -15,6 +15,8 @@ import com.majong.structure.tiles.Flowers;
 import com.majong.structure.tiles.Honors;
 import com.majong.structure.tiles.Seasons;
 import com.majong.structure.tiles.Tile;
+import com.majong.structure.tiles.TileFragment;
+import com.majong.structure.tiles.TileFragmentType;
 import com.majong.structure.tiles.TileType;
 
 public class Initializer {
@@ -54,12 +56,14 @@ public class Initializer {
 					//make bamboos
 					for(Bamboos bamboo : Bamboos.values()){
 						Tile tile = new Tile();
-						tile.setGraphic("zzz");
-						tile.setType(type);
-						tiles.add(tile);
+						Tile tilePair = new Tile();
+						
 						tile.setGraphic(bamboo.toString());
+						tilePair.setGraphic(bamboo.toString());
 						tile.setType(type);
-						tiles.add(tile);
+						tilePair.setType(type);
+						tiles.add(tile);										
+						tiles.add(tilePair);
 						
 						System.out.println("TYpe: " + bamboo);
 						
@@ -75,12 +79,13 @@ public class Initializer {
 					//make characters
 					for(Characters characters : Characters.values()){
 						Tile tile = new Tile();
+						Tile tilePair = new Tile();
 						tile.setGraphic(characters.toString());
+						tilePair.setGraphic(characters.toString());
 						tile.setType(type);
-						tiles.add(tile);
-						tile.setGraphic(characters.toString());
-						tile.setType(type);
-						tiles.add(tile);
+						tilePair.setType(type);
+						tiles.add(tile);	
+						tiles.add(tilePair);
 						
 						System.out.println("TYpe: " + characters);
 						count++;
@@ -182,6 +187,7 @@ public class Initializer {
 		return tiles;
 	}
 	
+	/*
 	public Board randomlyPlaceTiles(Board board){
 		Board b = board;
 		
@@ -193,7 +199,7 @@ public class Initializer {
 		for(int i = 0; i < board.getGrids().size(); i++){
 			Grid g = board.getGrids().get(i);
 			
-			Tile[][] tempGrid = g.getFullGrid();
+			TileFragment[][] tempGrid = g.getFullGrid();
 			
 			System.out.println("iterating through tiles...");
 			
@@ -231,6 +237,7 @@ public class Initializer {
 		
 		return b;
 	}
+	*/
 	
 	public Board placeTiles(Board board, String[][] pattern, int rows, int cols){
 		Board b = board;
@@ -248,6 +255,7 @@ public class Initializer {
 		for(Iterator iter = allTiles.iterator(); iter.hasNext();){
 			
 			Tile t = (Tile)iter.next();
+			System.out.println("Placing tile " + t.getGraphic() + " " + t.toString() + " ...");
 			int positionOfPair = allTiles.lastIndexOf(t);
 			
 			if(positionOfPair != -1){
@@ -261,18 +269,20 @@ public class Initializer {
 		for(int i = 0; i < board.getGrids().size(); i++){
 			Grid g = board.getGrids().get(i);
 			
-			Tile[][] tempGrid = g.getFullGrid();
+			TileFragment[][] tempGrid = g.getFullGrid();
 			
 			System.out.println("iterating through tiles...");								
 
 			for(int j = 0; j < rows-1; j++){
 				for(int k = 0; k < cols; k++){
-					if(pattern[j][k] != null){
-						if(tempGrid[j][k] == null){
-							Tile tempTile = (Tile)tiles.pop();
-							tempGrid[j][k] = tempTile;
-							tempGrid[j+1][k] = tempTile;
-						}
+					if(pattern[j][k] != null && tempGrid[j][k] == null){						
+							Tile parentTile = (Tile)tiles.pop();
+							System.out.println("placing parent " + parentTile.toString() + " TOP at " + j + "," + k + " and BOTTOM at " + (j+1) + "," + k);
+							Tile parentTile2 = (Tile)tiles.pop();
+							System.out.println("placing parent " + parentTile2.toString() + " TOP at " + j + "," + k + " and BOTTOM at " + (j+1) + "," + k);
+							tempGrid[j][k] = new TileFragment(parentTile, TileFragmentType.TOP);
+							tempGrid[j+1][k] = new TileFragment(parentTile, TileFragmentType.BOTTOM);
+						
 					}
 				}
 			}
@@ -291,6 +301,36 @@ public class Initializer {
 		Collections.shuffle(tiles, new Random(seed));
 		
 		return tiles;
+	}
+	
+	public Board lockTiles(Board board, int rows, int cols){
+		TileFragment[][] fullBoard = board.getGrids().get(0).getFullGrid();
+		
+		for(int j = 0; j < rows-1; j++){
+			for(int k = 0; k < cols; k++){
+				if(fullBoard[j][k] != null){
+					
+						TileFragment fragment = fullBoard[j][k];
+						Tile curTile = fragment.getTile();
+						
+						System.out.println("CurTIle: at " + j + "," + k + " " + curTile.toString());
+						
+						if(fullBoard[j][k-1] != null || fullBoard[j+1][k-1] != null){
+							curTile.setHasLeftNeighbor(true);
+						}
+						if(fullBoard[j][k+1] != null || fullBoard[j+1][k+1] != null){
+							curTile.setHasRightNeighbor(true);
+						}
+						if(curTile.getHasLeftNeighbor() && curTile.getHasRightNeighbor()){
+							curTile.setIsTrapped(true);
+						}
+					
+				}
+			}
+		}
+		
+		
+		return board;
 	}
 	
 }

@@ -1,17 +1,18 @@
 package com.majong.structure;
 
 import com.majong.structure.tiles.Tile;
+import com.majong.structure.tiles.TileFragment;
 
 public class Grid {
 	
 	private int _rows;
 	private int _columns;
-	private Tile[][] _fullGrid;
+	private TileFragment[][] _fullGrid;
 	
 	public Grid(int rows, int columns){
 		_rows = rows;
 		_columns = columns;
-		_fullGrid = new Tile[rows][columns];
+		_fullGrid = new TileFragment[rows][columns];
 	}
 	
 	public int getRows(){ return _rows; }
@@ -20,7 +21,7 @@ public class Grid {
 	public int getColumns(){ return _columns; }
 	public void setColumns(int columns){ _columns = columns; }
 	
-	public Tile[][] getFullGrid(){ return _fullGrid; }
-	public void setFullGrid(Tile[][] fullGrid){ _fullGrid = fullGrid; }
+	public TileFragment[][] getFullGrid(){ return _fullGrid; }
+	public void setFullGrid(TileFragment[][] fullGrid){ _fullGrid = fullGrid; }
 	
 }
