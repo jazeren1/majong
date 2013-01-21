@@ -251,8 +251,8 @@ public class Initializer {
 		
 		boolean duplicate = false;
 		
-		Stack tiles = new Stack<Tile>();
-		for(Iterator iter = allTiles.iterator(); iter.hasNext();){
+		Stack<Tile> tiles = new Stack<Tile>();
+		for(Iterator<Tile> iter = allTiles.iterator(); iter.hasNext();){
 			
 			Tile t = (Tile)iter.next();
 			System.out.println("Placing tile " + t.getGraphic() + " " + t.toString() + " ...");

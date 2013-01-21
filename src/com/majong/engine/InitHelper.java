@@ -14,6 +14,21 @@ public class InitHelper {
 		pattern[1][1] = "1";
 		pattern[1][2] = "1";
 		pattern[1][3] = "1";
+		pattern[2][1] = "1";
+		pattern[2][2] = "1";
+		pattern[2][3] = "1";
+		pattern[3][2] = "1";
+
+		return pattern;
+	}
+	/*
+	public String[][] getSimplePattern(){
+		String[][] pattern = new String[10][6];
+		
+		pattern[0][2] = "1";
+		pattern[1][1] = "1";
+		pattern[1][2] = "1";
+		pattern[1][3] = "1";
 		pattern[1][4] = "1";
 		pattern[2][1] = "1";
 		pattern[2][2] = "1";
@@ -27,6 +42,7 @@ public class InitHelper {
 		pattern[7][2] = "1";
 		return pattern;
 	}
+	*/
 	
 	public void printGrid(Board board){
 		System.out.println("Printing Majong Grid of Size: " + board.getRows() + " X " + board.getColumns() + " with " + board.getTotalTilePairs()*2 + " total tiles");

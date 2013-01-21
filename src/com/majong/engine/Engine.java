@@ -31,12 +31,21 @@ public class Engine {
 		Initializer init = new Initializer();
 		InitHelper initHelper = new InitHelper();
 		
+		int rows = 8;
+		int cols = 5;
+		int height = 1;
+		int tilePairs = 2;
+		
 		//tilePairs, MaxHeight, Rows, Cols
-		Board board = init.generateBoard(4, 1, 10, 7);
+		Board board = init.generateBoard(tilePairs, height, rows, cols);
 
-		board = init.placeTiles(board, initHelper.getSimplePattern(), 10, 5);
-		board = init.lockTiles(board, 10, 7);
+		board = init.placeTiles(board, initHelper.getSimplePattern(), rows, cols);
+		board = init.lockTiles(board, rows, cols);
 		initHelper.printGrid(board);
+		
+		Game game = new Game(board);
+		//game.playSample();
+		initHelper.printGrid(game.playSample());
 		
 		_started = true;
 	}
