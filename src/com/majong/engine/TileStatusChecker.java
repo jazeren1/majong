@@ -1,7 +1,11 @@
 package com.majong.engine;
 
+import org.apache.log4j.Logger;
+
 public class TileStatusChecker {
 
+	static final Logger log = Logger.getLogger(TileStatusChecker.class);
+	
 	public boolean isLocked(){
 		boolean locked = false;
 		

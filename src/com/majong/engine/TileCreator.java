@@ -2,6 +2,8 @@ package com.majong.engine;
 
 import java.util.ArrayList;
 
+import org.apache.log4j.Logger;
+
 import com.majong.structure.tiles.Bamboos;
 import com.majong.structure.tiles.Characters;
 import com.majong.structure.tiles.Dots;
@@ -13,6 +15,8 @@ import com.majong.structure.tiles.TileType;
 
 public class TileCreator {
 
+	static final Logger log = Logger.getLogger(TileCreator.class);
+	
 	public ArrayList<Tile> createBamboos(ArrayList<Tile> tiles, TileType type){
 		System.out.println("TYpe is" + TileType.BAMBOOS);
 		//make bamboos

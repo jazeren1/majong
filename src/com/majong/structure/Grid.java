@@ -1,6 +1,5 @@
 package com.majong.structure;
 
-import com.majong.structure.tiles.Tile;
 import com.majong.structure.tiles.TileFragment;
 
 public class Grid {

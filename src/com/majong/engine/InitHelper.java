@@ -1,11 +1,15 @@
 package com.majong.engine;
 
+import org.apache.log4j.Logger;
+
 import com.majong.structure.Board;
 import com.majong.structure.Grid;
 import com.majong.structure.tiles.Tile;
 import com.majong.structure.tiles.TileFragment;
 
 public class InitHelper {
+	
+	static final Logger log = Logger.getLogger(InitHelper.class);
 	
 	public String[][] getSimplePattern(){
 		String[][] pattern = new String[10][6];
@@ -45,32 +49,37 @@ public class InitHelper {
 	*/
 	
 	public void printGrid(Board board){
-		System.out.println("Printing Majong Grid of Size: " + board.getRows() + " X " + board.getColumns() + " with " + board.getTotalTilePairs()*2 + " total tiles");
-		System.out.println("------------------------------------------------------");
+		log.debug("Printing Majong Grid of Size: " + board.getRows() + " X " + board.getColumns() + " with " + board.getTotalTilePairs()*2 + " total tiles");
+		log.debug("------------------------------------------------------");
 		
 		for(int i = 0; i < board.getGrids().size(); i++){
 			Grid g = board.getGrids().get(i);
-			System.out.println("LOOKING AT Grid Num: " + i);
-			System.out.println("-------------------------");
+			String debugBoard = "";
+			
+			debugBoard += "LOOKING AT Grid Num: ";
+			debugBoard += Integer.toString(i);
+			
 			for(int j = 0; j < g.getRows(); j++){
-				System.out.println("");
+				debugBoard += "\r\n";
+				System.out.print("\r\n");
 				for(int k = 0; k < g.getColumns(); k++){
 					TileFragment fragment = g.getFullGrid()[j][k];
 					
 					if(fragment != null){
 						Tile curTile = fragment.getTile();
 						if(curTile.getIsTrapped()){
-							System.out.print("L" + curTile.getGraphic() + fragment.getType().toString().substring(0,1) + "\t");
+							debugBoard += "L" + curTile.getGraphic() + fragment.getType().toString().substring(0,1) + "\t";
 						}
 						else{
-							System.out.print(curTile.getGraphic() + fragment.getType().toString().substring(0,1) + "\t");
+							debugBoard += curTile.getGraphic() + fragment.getType().toString().substring(0,1) + "\t";
 						}
 					}
 					else{
-						System.out.print("X\t");
+						debugBoard += "X\t";
 					}
 				}
 			}
+			log.debug(debugBoard);
 			
 		}
 	}

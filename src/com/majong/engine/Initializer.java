@@ -6,6 +6,8 @@ import java.util.Iterator;
 import java.util.Random;
 import java.util.Stack;
 
+import org.apache.log4j.Logger;
+
 import com.majong.structure.Board;
 import com.majong.structure.Grid;
 import com.majong.structure.tiles.Bamboos;
@@ -21,6 +23,8 @@ import com.majong.structure.tiles.TileType;
 
 public class Initializer {
 
+	static final Logger log = Logger.getLogger(Initializer.class);
+	
 	public Board generateBoard(int tilePairs, int maxHeight, int rows, int columns){				
 		
 		Board board = new Board(tilePairs, maxHeight, rows, columns);
@@ -244,12 +248,6 @@ public class Initializer {
 		
 		ArrayList<Tile> allTiles = board.getTiles();
 		ArrayList<Grid> gridsWithTiles = new ArrayList<Grid>();
-		
-		int totalGridRows = board.getGrids().size();
-		int totalTilePairs = board.getTotalTilePairs();
-		int numPlacedTilePairs = 0;
-		
-		boolean duplicate = false;
 		
 		Stack<Tile> tiles = new Stack<Tile>();
 		for(Iterator<Tile> iter = allTiles.iterator(); iter.hasNext();){
