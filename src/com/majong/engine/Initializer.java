@@ -280,8 +280,21 @@ public class Initializer {
 							System.out.println("placing parent " + parentTile.toString() + " TOP at " + j + "," + k + " and BOTTOM at " + (j+1) + "," + k);
 							Tile parentTile2 = (Tile)tiles.pop();
 							System.out.println("placing parent " + parentTile2.toString() + " TOP at " + j + "," + k + " and BOTTOM at " + (j+1) + "," + k);
-							tempGrid[j][k] = new TileFragment(parentTile, TileFragmentType.TOP);
-							tempGrid[j+1][k] = new TileFragment(parentTile, TileFragmentType.BOTTOM);
+							
+							//set top tile
+							TileFragment top = new TileFragment(parentTile, TileFragmentType.TOP);
+							top.setHeight(i);
+							top.setRow(j);
+							top.setCol(k);
+							parentTile.setTopFragment(top);
+							tempGrid[j][k] = top;
+							
+							TileFragment bottom = new TileFragment(parentTile, TileFragmentType.BOTTOM);
+							top.setHeight(i);
+							top.setRow(j);
+							top.setCol(k);
+							parentTile.setBottomFragment(bottom);
+							tempGrid[j+1][k] = bottom;
 						
 					}
 				}

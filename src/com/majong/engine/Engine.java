@@ -34,7 +34,7 @@ public class Engine {
 		int rows = 8;
 		int cols = 5;
 		int height = 1;
-		int tilePairs = 2;
+		int tilePairs = 1;
 		
 		//tilePairs, MaxHeight, Rows, Cols
 		Board board = init.generateBoard(tilePairs, height, rows, cols);

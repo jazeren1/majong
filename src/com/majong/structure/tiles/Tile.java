@@ -10,6 +10,8 @@ public class Tile {
 	boolean _isSelected = false;
 	String _graphic = "";
 	TileType _type;
+	TileFragment _topFragment;
+	TileFragment _bottomFragment;
 	
 	public boolean getHasLeftNeighbor(){ return _hasLeftNeighbor; }	
 	public void setHasLeftNeighbor(boolean leftNeighbor){ _hasLeftNeighbor = leftNeighbor; }
@@ -31,4 +33,13 @@ public class Tile {
 	
 	public TileType getType(){ return _type; }
 	public void setType(TileType type){ _type = type; }
+	
+	public TileFragment getTopFragment() { return _topFragment; }
+	public void setTopFragment(TileFragment topFragment) { _topFragment = topFragment; }
+	
+	public TileFragment getBottomFragment() { return _bottomFragment; }
+	public void setBottomFragment(TileFragment bottomFragment) { _bottomFragment = bottomFragment; }
+	
+	
+	
 }

@@ -12,6 +12,7 @@ public class Board {
 	private int _columns;
 	private ArrayList<Grid> _grids;
 	private ArrayList<Tile> _tiles;
+	private Tile _selectedTile;
 	
 	public Board(int totalTilePairs, int maxHeight, int rows, int columns){
 		_totalTilePairs = totalTilePairs;
@@ -37,5 +38,8 @@ public class Board {
 	
 	public ArrayList<Tile> getTiles() { return _tiles; }
 	public void setTiles(ArrayList<Tile> tiles){ _tiles = tiles; }
+	
+	public Tile getSelectedTile() { return _selectedTile; }
+	public void setSelectedTile(Tile tile) { _selectedTile = tile; }
 	
 }

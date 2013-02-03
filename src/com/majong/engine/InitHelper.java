@@ -10,14 +10,14 @@ public class InitHelper {
 	public String[][] getSimplePattern(){
 		String[][] pattern = new String[10][6];
 		
-		pattern[0][2] = "1";
+		//pattern[0][2] = "1";
 		pattern[1][1] = "1";
 		pattern[1][2] = "1";
-		pattern[1][3] = "1";
+		//pattern[1][3] = "1";
 		pattern[2][1] = "1";
 		pattern[2][2] = "1";
-		pattern[2][3] = "1";
-		pattern[3][2] = "1";
+		//pattern[2][3] = "1";
+		//pattern[3][2] = "1";
 
 		return pattern;
 	}
