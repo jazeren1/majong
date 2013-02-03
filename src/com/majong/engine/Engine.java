@@ -1,33 +1,28 @@
 package com.majong.engine;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.Stack;
+import org.apache.log4j.Logger;
+import org.apache.log4j.PropertyConfigurator;
 
 import com.majong.structure.Board;
-import com.majong.structure.Grid;
-import com.majong.structure.tiles.Bamboos;
-import com.majong.structure.tiles.Characters;
-import com.majong.structure.tiles.Dots;
-import com.majong.structure.tiles.Flowers;
-import com.majong.structure.tiles.Honors;
-import com.majong.structure.tiles.Seasons;
-import com.majong.structure.tiles.Tile;
-import com.majong.structure.tiles.TileType;
 
 public class Engine {
+	
+	public static final String LOG4J_PROPERTIES = "libs/log4j.properties";
+	
+	static final Logger log = Logger.getLogger(Engine.class);
 	
 	//TODO not sure when we might need this, but I think we will so I'm putting it in
 	static boolean _started = false;
 	
-	/**
-	 * @param args
-	 */
 	public static void main(String[] args) {
+		
+		PropertyConfigurator.configure(LOG4J_PROPERTIES);
+		
 		start();		
 	}
 	
-	public static void start(){				
+	public static void start(){									
+		
 		Initializer init = new Initializer();
 		InitHelper initHelper = new InitHelper();
 		
