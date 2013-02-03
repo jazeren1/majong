@@ -1,6 +1,7 @@
 package com.majong.structure;
 
 import java.util.ArrayList;
+import java.util.Stack;
 
 import com.majong.structure.tiles.Tile;
 
@@ -13,12 +14,14 @@ public class Board {
 	private ArrayList<Grid> _grids;
 	private ArrayList<Tile> _tiles;
 	private Tile _selectedTile;
+	private Stack<Tile> _orderedTiles;
 	
 	public Board(int totalTilePairs, int maxHeight, int rows, int columns){
 		_totalTilePairs = totalTilePairs;
 		_maxHeight = maxHeight;
 		_rows = rows;
 		_columns = columns;
+		_orderedTiles = new Stack<Tile>();
 	}
 	
 	public int getTotalTilePairs(){ return _totalTilePairs; }
@@ -41,5 +44,10 @@ public class Board {
 	
 	public Tile getSelectedTile() { return _selectedTile; }
 	public void setSelectedTile(Tile tile) { _selectedTile = tile; }
+	
+	public Stack<Tile> getOrderedTiles() { return _orderedTiles; }
+	public void setOrderedTiles(Stack<Tile> orderedTiles) { _orderedTiles = orderedTiles; };
+	public void pushOrderedTile(Tile tile) { _orderedTiles.push(tile); }
+	public Tile popOrderedTile() { return _orderedTiles.pop(); };
 	
 }

@@ -38,6 +38,8 @@ public class Initializer {
 		
 		tiles = createTiles(tilePairs);
 		
+		log.debug("added " + tiles.size() + " tiles to list");
+		
 		board.setGrids(grids);
 		board.setTiles(tiles);
 		
@@ -62,6 +64,9 @@ public class Initializer {
 						Tile tile = new Tile();
 						Tile tilePair = new Tile();
 						
+						log.debug("Setting new tile ..." + tile.toString());
+						log.debug("Setting tile's pair..." + tilePair.toString());
+						
 						tile.setGraphic(bamboo.toString());
 						tilePair.setGraphic(bamboo.toString());
 						tile.setType(type);
@@ -69,10 +74,10 @@ public class Initializer {
 						tiles.add(tile);										
 						tiles.add(tilePair);
 						
-						System.out.println("TYpe: " + bamboo);
+						log.debug("TYpe: " + bamboo);
 						
 						count++;
-						System.out.println("Count: " + count);
+						log.debug("Count: " + count);
 						if(count == tilePairs){
 							break;
 						}
@@ -188,6 +193,11 @@ public class Initializer {
 		
 		tiles = randomizeTiles(tiles);
 		
+		log.debug("Checking tiles");
+		for(int i = 0; i < tiles.size(); i++){
+			log.debug("Found tile: " + tiles.get(i));
+		}
+		
 		return tiles;
 	}
 	
@@ -249,18 +259,35 @@ public class Initializer {
 		ArrayList<Tile> allTiles = board.getTiles();
 		ArrayList<Grid> gridsWithTiles = new ArrayList<Grid>();
 		
+		log.debug("Placing tiles with " + allTiles.size() + " tiles...");
+		
 		Stack<Tile> tiles = new Stack<Tile>();
+		
+		int count = 0;
 		for(Iterator<Tile> iter = allTiles.iterator(); iter.hasNext();){
 			
 			Tile t = (Tile)iter.next();
-			System.out.println("Placing tile " + t.getGraphic() + " " + t.toString() + " ...");
-			int positionOfPair = allTiles.lastIndexOf(t);
+			log.debug("Placing tile " + t.getGraphic() + " " + t.toString() + " ...");
+			//int positionOfPair = allTiles.lastIndexOf(t);
+			int positionOfPair = findMatchPosition(allTiles, t);
 			
 			if(positionOfPair != -1){
 				//push tiles onto a stack
 				tiles.push(t);
+				log.debug("Pushing Tile to stack: " + t.getGraphic() + " --- " + t.toString());
 				//always need to place the matching tile as well
 				tiles.push(allTiles.get(positionOfPair));
+				log.debug("Pushing Tile's pair to stack: " + allTiles.get(positionOfPair).getGraphic() + " --- " + allTiles.get(positionOfPair).toString());
+				log.debug("TIles Size: " + tiles.size());
+			}
+			else{
+				log.debug("found tile with no matching pair, skipping to the next one...");
+				iter.hasNext();
+			}
+			
+			count++;
+			if(count == board.getTotalTilePairs()){
+				break;
 			}
 		}
 		
@@ -274,10 +301,12 @@ public class Initializer {
 			for(int j = 0; j < rows-1; j++){
 				for(int k = 0; k < cols; k++){
 					if(pattern[j][k] != null && tempGrid[j][k] == null){						
+						if(tiles.size() > 0){	
+							log.debug("Popping tiles for placement: " + tiles.size());
 							Tile parentTile = (Tile)tiles.pop();
-							System.out.println("placing parent " + parentTile.toString() + " TOP at " + j + "," + k + " and BOTTOM at " + (j+1) + "," + k);
-							Tile parentTile2 = (Tile)tiles.pop();
-							System.out.println("placing parent " + parentTile2.toString() + " TOP at " + j + "," + k + " and BOTTOM at " + (j+1) + "," + k);
+							log.debug("placing parent1 " + parentTile.toString() + " TOP at " + j + "," + k + " and BOTTOM at " + (j+1) + "," + k + " " + parentTile.getGraphic());
+							//Tile parentTile2 = (Tile)tiles.pop();
+							//log.debug("placing parent2 " + parentTile2.toString() + " TOP at " + j + "," + k + " and BOTTOM at " + (j+1) + "," + k + " " +parentTile.getGraphic());
 							
 							//set top tile
 							TileFragment top = new TileFragment(parentTile, TileFragmentType.TOP);
@@ -293,7 +322,10 @@ public class Initializer {
 							top.setCol(k);
 							parentTile.setBottomFragment(bottom);
 							tempGrid[j+1][k] = bottom;
-						
+							
+							log.debug("Pushing to FInal Stack " + parentTile.toString() +  "-------------" + parentTile.getGraphic());
+							board.pushOrderedTile(parentTile);
+						}
 					}
 				}
 			}
@@ -306,6 +338,19 @@ public class Initializer {
 		
 		return b;
 	}	
+	
+	private int findMatchPosition(ArrayList<Tile> tiles, Tile tile){
+		int position = -1;
+		
+		for (int i = 0; i < tiles.size(); i++){
+			if(tiles.get(i).getGraphic().equals(tile.getGraphic()) && 
+					tiles.get(i) != tile){
+				position = i;
+			}
+		}
+		
+		return position;
+	}
 	
 	private ArrayList<Tile> randomizeTiles(ArrayList<Tile> tiles){
 		long seed = System.nanoTime();

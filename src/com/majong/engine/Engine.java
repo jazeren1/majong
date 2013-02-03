@@ -29,9 +29,9 @@ public class Engine {
 		int rows = 8;
 		int cols = 5;
 		int height = 1;
-		int tilePairs = 1;			
+		int tilePairs = 3;			
 		
-		log.debug("Starting Game with: Rows->" + rows + " cols->" +cols + " height->" + 1 + " and " + tilePairs + " tile pairs");
+		log.debug("Starting Game with: Rows->" + rows + " cols->" +cols + " height->" + height + " and " + tilePairs + " tile pairs");
 		
 		//tilePairs, MaxHeight, Rows, Cols
 		Board board = init.generateBoard(tilePairs, height, rows, cols);
@@ -42,7 +42,8 @@ public class Engine {
 		
 		log.debug("about to play a new game...");
 		Game game = new Game(board);
-		initHelper.printGrid(game.playSample());
+		game.playSample();
+		//initHelper.printGrid(game.playSample());
 		
 		_started = true;
 	}

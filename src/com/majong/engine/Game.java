@@ -1,6 +1,7 @@
 package com.majong.engine;
 
 import java.util.ArrayList;
+import java.util.Stack;
 
 import org.apache.log4j.Logger;
 
@@ -23,7 +24,7 @@ public class Game {
 	}
 	
 	public Board playSample(){
-		
+		/*
 		log.debug("Getting Tile at 0,1,1...");
 		Tile tile = getTile(0, 1, 1);
 		log.debug("Found TIle at 0,1,1: " + tile.getType() + " " + tile.getGraphic() + " atzzz: " + tile.getTopFragment().getHeight() + "," + tile.getTopFragment().getRow() + "," + tile.getTopFragment().getCol());
@@ -41,6 +42,10 @@ public class Game {
 		else{
 			log.debug("Selected TIle is: " + _selectedTile.getGraphic() + " at " + _selectedTile.getTopFragment().getHeight() + "," + _selectedTile.getTopFragment().getRow() + "," + _selectedTile.getTopFragment().getCol());
 		}
+		*/
+		
+		log.debug("Playing all tiles...");
+		playAll();
 		
 		return _board;
 	}
@@ -125,6 +130,24 @@ public class Game {
 		grids.get(height).setFullGrid(wholeGrid);
 		_board.setGrids(grids);
 
+	}
+	
+	private void playAll(){		
+		Stack<Tile> orderedTiles = _board.getOrderedTiles();
+		
+		while(!orderedTiles.isEmpty()){
+			Tile tile1 = orderedTiles.pop();
+			log.debug("Tile1 Popped: " + tile1.getGraphic());
+			Tile tile2 = orderedTiles.pop();
+			log.debug("Tile2 Popped: " + tile2.getGraphic());
+			
+			
+			selectTile(tile1);
+			selectTile(tile2);
+			
+			InitHelper initHelper = new InitHelper();
+			initHelper.printGrid(_board);
+		}
 	}
 	
 }
